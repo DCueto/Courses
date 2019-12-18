@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Grid implícito</title>
+  <style>
+    body{
+      font-family: Arial;
+    }
+
+    .container{
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100px 200px;
+		  grid-auto-rows: 50px 200px;
+      /* grid-template-columns: [inicio-destacado] 1fr [linea2] 1fr [linea3] 1fr [fin-destacado1] 1fr [linea5] 1fr [fin-destacado2] 1fr [sub-destacado] 1fr [fin]; */
+      /* grid-template-rows: [inicio-destacado] 90px 90px 90px 90px 90px [destacados] 90px [sub-destacados] 90px [fin]; */
+      grid-gap: 5px;
+    }
+
+    .container .item {
+      background-color: lightgreen;
+      border: 1px solid black;
+      color: white;
+      padding: 20px;
+      /* margin-right: 10px;
+      margin-bottom: 10px; */
+    }
+
+    /* .item:nth-of-type(1) {
+      background-color: blue;
+      grid-column: inicio-destacado / fin;
+      grid-row: inicio-destacado / destacados;
+    }
+
+    .item:nth-of-type(2) {
+      background-color: darkorange;
+      grid-column-start: inicio-destacado;
+      grid-column-end: fin-destacado1;
+      grid-row: destacados / fin;
+    }
+
+    .item:nth-of-type(3) {
+      background-color: darkorange;
+      grid-column: fin-destacado1 / fin-destacado2;
+      grid-row: destacados / fin;   
+    }
+    .item:nth-of-type(4) {
+      background-color: darkorange;
+      grid-column: fin-destacado2 / fin;
+      grid-row: destacados / 7;
+    }
+    .item:nth-of-type(5) {
+      background-color: darkorange;
+      grid-column: fin-destacado2 / sub-destacado;
+      grid-row: sub-destacados / fin;
+    }
+    .item:nth-of-type(6) {
+      background-color: darkorange;
+      grid-column: sub-destacado / fin;
+      grid-row: sub-destacados / fin;
+    } */
+
+  </style>
+</head>
+<body>
+  <section class="container">
+  <div class="item">item #1</div>
+  <div class="item">item #2</div>
+  <div class="item">item #3</div>
+  <div class="item">item #4</div>
+  <div class="item">item #5</div>
+  <div class="item">item #6</div>
+  <div class="item">item #7</div>
+  <div class="item">item #8</div>
+  <div class="item">item #9</div>
+  <div class="item">item #10</div>
+  </section>
+  
+</body>
+</html>
