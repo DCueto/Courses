@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Git</title>
+	<style>
+		body{
+			margin: 0;
+			border: 10px solid #FF3046;
+		}
+		
+		img{
+			max-width: 100%;
+			vertical-align: top;
+		}
+
+		img#responsive {
+				display: none;
+		}
+		
+		@media screen and (max-width: 768px){
+
+			img{
+				display: none; 
+			}
+			
+			img#responsive {
+				display: block;
+			}
+		}
+	</style>
+</head>
+<body>
+	<h1>Esto es una prueba de git stash en la rama responsive</h1>
+	<img src="img/invie-responsive.png" id="responsive" alt="">
+	<img src="img/nueva-version.jpg" alt="">
+</body>
+</html>
