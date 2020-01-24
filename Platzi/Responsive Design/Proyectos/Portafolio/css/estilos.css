@@ -339,6 +339,12 @@ h2{
   vertical-align: middle;
 }
 
+.html-video{
+  width: 100%;
+  /* max-width: 100%; */
+  height: auto;
+}
+
 
 @media screen and (max-width: 1024px){
 
@@ -456,7 +462,7 @@ h2{
   h1{
     font-size: 1.5em;
   }
-  
+
   .hero-image{
     height: 100%;
   }
@@ -499,3 +505,4 @@ h2{
     padding: 2em 1em;
   }
 }
+
