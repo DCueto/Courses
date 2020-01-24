@@ -34,7 +34,8 @@ body{
 
 .container{
   max-width: 1000px;
-  width: auto;
+  flex: 1;
+  /* width: auto; */
   margin: 0 auto;
   display: inherit;
   justify-content: inherit;
@@ -44,6 +45,10 @@ body{
 }
 
 .contact .container, .footer .container, .header .container{
+  /* width: 1000px; */
+}
+
+.contact .container, .footer .container{
   width: 1000px;
 }
 
@@ -75,6 +80,7 @@ h2{
 }
 
 .header{
+  /* width: 100%; */
   background-color: #1B2127;
   color: white;
   height: 70px;
@@ -82,6 +88,7 @@ h2{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .menu{
@@ -130,6 +137,7 @@ h2{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .hero-image{
@@ -149,6 +157,7 @@ h2{
   padding: 20px;
   background: white;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
 }
@@ -158,17 +167,17 @@ h2{
 }
 
 .project-details{
-  width: 500px;
+  width: 50%;
 }
 
-/* .project-title{
+.project-title{
   font-size: 30px;
   margin-top: 0;
   margin-bottom: 10px;
-} */
+}
 
 .project-course, .project-date, .project-url{
-  margin: 7px 0;
+  margin: 10px 0;
 }
 
 .project-course{
@@ -183,11 +192,11 @@ h2{
 }
 
 .project-imageContainer{
-  width: 500px;
+  width: 50%;
 }
 
 .project-image{
-  width: 100%;
+  max-width: 100%;
 }
 
 .events{
@@ -201,15 +210,15 @@ h2{
 
 .event{
   box-shadow: 0px 0px 5px lightgray;
-  margin: 10px;
-  width: 480px;
+  margin: 1%;
+  width: 48%;
   border-radius: 5px;
   overflow: hidden;
   background-color: #f4fbff;
 }
 
 .event-imageContainer{
-  width: inherit;
+  width: 100%;
   height: 200px;
 }
 
@@ -255,7 +264,7 @@ h2{
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0 50px;
+  padding: 1em 0;
 }
 
 .form-email h3{
@@ -318,6 +327,7 @@ h2{
   justify-content: space-between;
   align-items: center;
   padding: 0 50px;
+  flex-wrap: wrap;
 }
 
 .footer a{
@@ -327,4 +337,165 @@ h2{
 .footer img{
   width: 80px;
   vertical-align: middle;
+}
+
+
+@media screen and (max-width: 1024px){
+
+  .hero{
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    padding: 2em;
+  }
+
+  h1{
+    font-size: 2em;
+    z-index: 2;
+  }
+
+  .hero-image{
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 400px;
+  }
+
+  .contact{
+    padding: 1em 20px;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .header{
+    display: block;
+    height: auto;
+  }
+
+  .header .logo{
+    text-align: center;
+  }
+
+  .header ol{
+    display: initial;
+  }
+
+  .header ol li{
+    height: 50px;
+  }
+
+  .header ol li a{
+    justify-content: center;
+  }
+
+  .menu{
+    height: auto;
+  }
+
+  .project {
+    display: block;
+  }
+
+  .project-imageContainer{
+    width: auto;
+    text-align: center;
+  }
+
+  .project-details{
+    width: auto;
+    font-size: 16px;
+  }
+
+  .project-course, .project-date, .project-url {
+    margin: .3em 0;
+  }
+
+  .project-title{
+    font-size: 1.5em;
+    margin-bottom: .3em;
+  }
+  
+  .project-url{
+    font-size: 1em;
+  }
+
+  .project-course{
+    font-size: .7em;
+  }
+
+  .project-date{
+    font-size: 1em;
+  }
+
+  .project-description{
+    font-size: 1em;
+  }
+
+  .event{
+    width: auto;
+  }
+
+  .contact{
+    padding: 1em 1em;
+  }
+
+}
+
+@media screen and (max-width: 496px){
+  .contact{
+    padding: 1em 1%;
+  }
+}
+
+@media screen and (max-width: 480px){
+
+  h1{
+    font-size: 1.5em;
+  }
+  
+  .hero-image{
+    height: 100%;
+  }
+
+  .project-details{
+    font-size: 12px;
+  }
+
+  .event-details{
+    margin: -2em .5em .5em .5em;
+    padding: 1em;
+  }
+
+  .portfolio, .events{
+    padding: 5px;
+  }
+
+  .contact .container{
+    display: block;
+    text-align: center;
+  }
+
+  .form-email button{
+    margin: 1em auto;
+  }
+
+  .footer .container{
+    display: block;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px){
+  h1{
+    font-size: 1.2em;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .hero{
+    padding: 2em 1em;
+  }
 }
