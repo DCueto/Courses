@@ -1,4 +1,53 @@
+/* FONT ICONS */
 
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?69nmxq');
+  src:  url('../fonts/icomoon.eot?69nmxq#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?69nmxq') format('truetype'),
+    url('../fonts/icomoon.woff?69nmxq') format('woff'),
+    url('../fonts/icomoon.svg?69nmxq#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-github:before {
+  content: "\e901";
+}
+.icon-twitter:before {
+  content: "\e902";
+}
+.icon-instagram:before {
+  content: "\e903";
+}
+.icon-facebook:before {
+  content: "\e904";
+}
+.icon-mail:before {
+  content: "\e905";
+}
+.icon-mail1:before {
+  content: "\e906";
+}
+.icon-menu:before {
+  content: "\e900";
+}
 
 
 /* Paleta de colores */
@@ -30,6 +79,26 @@ body{
   margin: 0;
   padding: 0;
   background: #fafafa;
+}
+
+i.icon-menu{
+  display: none;
+  position: fixed;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, .7);
+  left: 10px;
+  top: 10px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.social [class^="icon-"], .social [class*=" icon-"]{
+  font-size: 50px;
+  color: white;
+  text-decoration: none;
+  margin: 0 .1em;
 }
 
 .container{
@@ -271,18 +340,37 @@ h2{
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+.input-container{
+  margin: 0 auto;
+  position: relative;
+  width: 145px;
+  height: 15px;
+  padding: 10px 20px 10px 25px;
+}
+
+.input-container .icon-mail{
+  position: absolute;
+  color: gray;
+  font-size: 15px;
+  z-index: 1;
+  top: 12px;
+  left: 6px;
+}
+
 .form-email input{
+  position: absolute;
+  top: 0;
+  left: 0;
   border-color: gray;
   border-radius: 5px;
   border-style: solid;
   padding: 10px 20px 10px 25px;
-  background-image: url("../images/envelope.svg");
+  /* background-image: url("../images/envelope.svg");
   background-size: 15px 15px;
   background-repeat: no-repeat;
   background-position-y: center;
-  background-position-x: 5px;
+  background-position-x: 5px; */
 }
-
 .form-email button{
   display: block;
   background: transparent;
@@ -298,7 +386,7 @@ h2{
   margin: 30px 0;
 }
 
-.social-link{
+/* .social-link{
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -317,7 +405,7 @@ h2{
 }
 .social-link.instagram{
   background-image: url(../images/instagram.svg);
-}
+} */
 
 
 .footer{
@@ -398,6 +486,12 @@ h2{
 }
 
 @media screen and (max-width: 767px){
+
+  i.icon-menu{
+    display: initial;
+    z-index: 10;
+  }
+
   .header{
     display: block;
     height: auto;
