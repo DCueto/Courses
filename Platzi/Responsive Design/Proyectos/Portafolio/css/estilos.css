@@ -84,21 +84,14 @@ body{
 i.icon-menu{
   display: none;
   position: fixed;
-  padding: 10px;
+  padding: 12px;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, .7);
-  left: 10px;
-  top: 10px;
+  left: 7px;
+  top: 7px;
   color: white;
-  font-size: 30px;
+  font-size: 16px;
   cursor: pointer;
-}
-
-.social [class^="icon-"], .social [class*=" icon-"]{
-  font-size: 50px;
-  color: white;
-  text-decoration: none;
-  margin: 0 .1em;
 }
 
 .container{
@@ -386,6 +379,13 @@ h2{
   margin: 30px 0;
 }
 
+.social [class^="icon-"], .social [class*=" icon-"]{
+  font-size: 50px;
+  color: white;
+  text-decoration: none;
+  margin: 0 .1em;
+}
+
 /* .social-link{
   display: inline-block;
   width: 50px;
@@ -495,6 +495,7 @@ h2{
   .header{
     display: block;
     height: auto;
+    padding-bottom: 10px;
   }
 
   .header .logo{
@@ -511,9 +512,34 @@ h2{
 
   .header ol li a{
     justify-content: center;
+    height: 40px;
+    font-size: 1.5em;
+    text-decoration: underline;
+    margin-bottom: .5em;
   }
 
   .menu{
+    height: auto;
+    position: fixed;
+    background: rgba(115, 63, 255, .9);
+    z-index: 9;
+    top: 0;
+    left: -100vw;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+  }
+
+  .menu.is-active{
+    left: 0;
+  }
+
+  .menu ol{
+    margin: 0;
     height: auto;
   }
 
