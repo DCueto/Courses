@@ -2,10 +2,21 @@
 // console.log(document.querySelector('.menu'));
 const $menu = document.querySelector('.menu');
 const $burgerButton = document.querySelector("#burger-menu");
+const $mQueryipad = window.matchMedia('screen and (max-width: 767px');
+// console.log($burgerButton);
 
-console.log($burgerButton);
 
-$burgerButton.addEventListener("click", hideShow);
+$mQueryipad.addListener(validation);
+
+
+function validation(event){
+  if (event.matches){
+    $burgerButton.addEventListener("click", hideShow);
+  } else {
+    $burgerButton.removeEventListener("click", hideShow);
+  }
+  console.log(event.matches);
+}
 
 function hideShow(){
   if($menu.classList.contains('is-active')){
