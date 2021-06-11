@@ -1,9 +1,12 @@
 {
 	"folders": [
-		{
-			"path": "."
-		}
-	],
+    {
+      "path": "."
+    },
+    {
+      "path": "../../../Noa/PROJECTE M6"
+    }
+  ],
   "settings": {
     "liveServer.settings.multiRootWorkspaceName": "Javascript Moderno"
   }
