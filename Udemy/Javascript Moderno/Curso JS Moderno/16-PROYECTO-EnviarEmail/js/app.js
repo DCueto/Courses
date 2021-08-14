@@ -44,23 +44,56 @@ function validarFormulario(e){
   // Campos vacios o completados
   if(e.target.value.length > 0){
     // Hay contenido
-    console.log(e.target.value);
-    e.target.classList.remove('border', 'border-red-500');
+    
+    // elimina errores
+    const errorEl = formulario.querySelector('.error');
+    if(errorEl){
+      errorEl.remove();
+    }
+
+    if(e.target.type !== 'email'){
+      e.target.classList.remove('border', 'border-red-500');
+      e.target.classList.add('border', 'border-green-500');
+    }
   } else{
     // No hay ningún contenido
     e.target.classList.add('border', 'border-red-500');
+    e.target.classList.remove('border-green-500');
     formError('Todos los campos son obligatorios', 3);
   }
 
   // Validación campo email
   if(e.target.type == 'email'){
-    const arroba = e.target.value.indexOf('@');
+
+    // forma compleja con una expresión regular
+    // (QUEDA PENDIENTE APRENDER EXPRESIONES REGULARES)
+    const er = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (er.test(e.target.value)){
+      // estilos borde input
+      e.target.classList.remove('border', 'border-red-500');
+      e.target.classList.add('border', 'border-green-500');
+      console.log('Formato de email correcto');
+
+      // borrar error
+      const errorEl = formulario.querySelector('.error');
+      if(errorEl){
+        formulario.removeChild(errorEl);
+      }
+    } else{
+      formError('Email no valido', 1);
+
+      e.target.classList.add('border', 'border-red-500');
+      e.target.classList.remove('border-green-500');
+    }
+
+    // forma muy simple de validación
+    /* const arroba = e.target.value.indexOf('@');
     if (arroba == -1){
       formError('Email no valido', 1);
       console.log('Introduce un email');
     } else{
       console.log('Email introducido');
-    }
+    } */
   }
 }
 
@@ -74,10 +107,15 @@ function formError(mensaje, position){
   mensajeError.classList.add('error', 'border', 'border-red-500', 'background-red-100', 'text-red-500', 'p-3', 'mb-5', 'text-center');
 
 
-  // Si no hay un elemento p con la clase error, añadelo
+  // Si no hay un elemento p con la clase error, añadelo. Si existe, actualiza el mensaje.
   if(!formulario.querySelector('p.error')){
     formulario.insertBefore(mensajeError, formulario.children[position]);
   } else{
-      console.log('Ya hay un <p> de error');
+    // borrar error
+    const errorEl = formulario.querySelector('.error');
+    formulario.removeChild(errorEl);
+    // cambiar mensaje
+    formulario.insertBefore(mensajeError, formulario.children[position]);
+    //formulario.querySelector('.error').textContent = mensaje;
   }
 }
