@@ -62,12 +62,13 @@ function validarFormulario(e){
     formError('Todos los campos son obligatorios', 3);
   }
 
+  // forma compleja con una expresión regular
+  // (QUEDA PENDIENTE APRENDER EXPRESIONES REGULARES)
+  const er = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   // Validación campo email
   if(e.target.type == 'email'){
 
-    // forma compleja con una expresión regular
-    // (QUEDA PENDIENTE APRENDER EXPRESIONES REGULARES)
-    const er = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (er.test(e.target.value)){
       // estilos borde input
       e.target.classList.remove('border', 'border-red-500');
@@ -85,15 +86,13 @@ function validarFormulario(e){
       e.target.classList.add('border', 'border-red-500');
       e.target.classList.remove('border-green-500');
     }
+  }
 
-    // forma muy simple de validación
-    /* const arroba = e.target.value.indexOf('@');
-    if (arroba == -1){
-      formError('Email no valido', 1);
-      console.log('Introduce un email');
-    } else{
-      console.log('Email introducido');
-    } */
+  // Todo correcto
+  if(email.value !== '' && er.test(email.value) && asunto.value !== '' && mensaje.value !== ''){
+    console.log('TODO OK');
+    btnEnviar.disabled = false;
+    btnEnviar.classList.remove('cursor-not-allowed', 'opacity-50');
   }
 }
 
@@ -113,7 +112,7 @@ function formError(mensaje, position){
   } else{
     // borrar error
     const errorEl = formulario.querySelector('.error');
-    formulario.removeChild(errorEl);
+    errorEl ? formulario.removeChild(errorEl) : null;
     // cambiar mensaje
     formulario.insertBefore(mensajeError, formulario.children[position]);
     //formulario.querySelector('.error').textContent = mensaje;
