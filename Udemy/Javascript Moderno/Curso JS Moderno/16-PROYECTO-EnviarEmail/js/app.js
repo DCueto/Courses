@@ -41,6 +41,7 @@ function iniciarApp(){
 
 function validarFormulario(e){
 
+  // Campos vacios o completados
   if(e.target.value.length > 0){
     // Hay contenido
     console.log(e.target.value);
@@ -48,25 +49,35 @@ function validarFormulario(e){
   } else{
     // No hay ningún contenido
     e.target.classList.add('border', 'border-red-500');
+    formError('Todos los campos son obligatorios', 3);
+  }
 
-    // Si no hay un elemento p con la clase error, añadelo
-    if(!formulario.querySelector('p.error')){
-      formError();
+  // Validación campo email
+  if(e.target.type == 'email'){
+    const arroba = e.target.value.indexOf('@');
+    if (arroba == -1){
+      formError('Email no valido', 1);
+      console.log('Introduce un email');
     } else{
-      console.log('Ya hay un <p> de error');
+      console.log('Email introducido');
     }
   }
 }
 
 
-function formError(){
+function formError(mensaje, position){
   console.log('Error');
   // Creamos el campo de error
   const mensajeError = document.createElement('p');
-  mensajeError.textContent = 'Todos los campos son obligatorios';
+  mensajeError.textContent = mensaje;
   // mensajeError.style.marginBottom = '1rem';
   mensajeError.classList.add('error', 'border', 'border-red-500', 'background-red-100', 'text-red-500', 'p-3', 'mb-5', 'text-center');
 
 
-  formulario.insertBefore(mensajeError, formulario.children[3]);
+  // Si no hay un elemento p con la clase error, añadelo
+  if(!formulario.querySelector('p.error')){
+    formulario.insertBefore(mensajeError, formulario.children[position]);
+  } else{
+      console.log('Ya hay un <p> de error');
+  }
 }
