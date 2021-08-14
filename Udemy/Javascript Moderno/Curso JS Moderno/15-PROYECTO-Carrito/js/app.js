@@ -76,9 +76,7 @@ function leerDatosCurso(curso){
 }
 
 // Enviar datos del array de cursosCarrito al contenedor HTML de carrito
-// De esta forma borramos y enviamos todos los datos del array al contenedor HTML, en vez de
-// enviar el elemento en cuestión cada vez que le damos a "agregar al carrito".
-// No parece ser la forma más optima de realizar el proceso
+// De esta forma borramos y enviamos todos los datos del array al contenedor HTML
 function enviarACarrito(datosCurso){
 
   // Envía los datos del curso a un array con los cursos del carrito
