@@ -8,8 +8,12 @@ let cursosCarrito = [];
 
 cargarEventListeners();
 function cargarEventListeners(){
+
   // Cuando agregas un curso presionando "Agregar al carrito"
   listaCursos.addEventListener('click', agregarCurso);
+
+  // Elimina cursos del carrito
+  carrito.addEventListener('click', eliminarCurso);
 }
 
 
@@ -29,6 +33,24 @@ function agregarCurso(e){
     enviarACarrito(datosCurso);
   }
 
+}
+
+// Elimina un curso del carrito
+function eliminarCurso(e){
+  if(e.target.classList.contains('borrar-curso')){
+    console.log(e);
+    const tituloCurso = e.target.parentElement.parentElement.children[1].textContent;
+    const idCurso = e.target.dataset.id;
+    
+    // Eliminar curso del arreglo cursosCarrito
+    // recorre todo el arreglo y reasigna todos los objetos con un id diferente al que hemos seleccionado
+    // para eliminar. De esta forma eliminamos el curso de nuestro arreglo.
+    cursosCarrito = cursosCarrito.filter( curso => curso.id !== idCurso);
+    
+    console.log(cursosCarrito);
+
+    actualizarHTML();
+  }
 }
 
 // Lee el contenido del HTML al que le dimos click y extrae información del curso
@@ -56,6 +78,26 @@ function enviarACarrito(datosCurso){
   // Envía los datos del curso a un array con los cursos del carrito
   compruebaCurso(datosCurso);
 
+  actualizarHTML();
+
+}
+
+// Elimina los cursos del tbody
+function limpiarHTML(){
+
+  // Forma lenta de limpiar
+  // contenedorCarrito.innerHTML = '';
+
+  // Forma optima
+  // Mientras el tbody tenga un elemento dentro, elimina ese elemento
+  while(contenedorCarrito.firstChild){
+    contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+  }
+}
+
+// Actualiza e imprime los datos al HTML del carrito
+function actualizarHTML(){
+
   // Limpiar el HTML
   limpiarHTML();
 
@@ -78,19 +120,6 @@ function enviarACarrito(datosCurso){
     // Agrega el html del tr al tbody
     contenedorCarrito.appendChild(row);
   });
-}
-
-// Elimina los cursos del tbody
-function limpiarHTML(){
-
-  // Forma lenta de limpiar
-  // contenedorCarrito.innerHTML = '';
-
-  // Forma optima
-  // Mientras el tbody tenga un elemento dentro, elimina ese elemento
-  while(contenedorCarrito.firstChild){
-    contenedorCarrito.removeChild(contenedorCarrito.firstChild);
-  }
 }
 
 
