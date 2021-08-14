@@ -25,8 +25,8 @@ function agregarCurso(e){
     const cursoSeleccionado = e.target.parentElement.parentElement;
     console.log(e);
 
-    leerDatosCurso(cursoSeleccionado);
-    enviarACarrito();
+    const datosCurso = leerDatosCurso(cursoSeleccionado);
+    enviarACarrito(datosCurso);
   }
 
 }
@@ -44,10 +44,6 @@ function leerDatosCurso(curso){
     cantidad: 1,
   }
 
-  // Envía los datos del curso a un array con los cursos del carrito
-  cursosCarrito = [...cursosCarrito, infoCurso];
-  console.log(cursosCarrito);
-
   return infoCurso;
 }
 
@@ -55,19 +51,28 @@ function leerDatosCurso(curso){
 // De esta forma borramos y enviamos todos los datos del array al contenedor HTML, en vez de
 // enviar el elemento en cuestión cada vez que le damos a "agregar al carrito".
 // No parece ser la forma más optima de realizar el proceso
-function enviarACarrito(){
+function enviarACarrito(datosCurso){
+
+  // Envía los datos del curso a un array con los cursos del carrito
+  compruebaCurso(datosCurso);
 
   // Limpiar el HTML
   limpiarHTML();
 
   // Recorre el carrito y genera el HTML
   cursosCarrito.forEach( curso => {
+
     // Crea un elemento tr con el curso para el carrito
+    const {imagen, titulo, precio, cantidad, id} = curso;
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>
-        ${curso.titulo}
+        <img src="${imagen}" width="100"/>
       </td>
+      <td> ${titulo} </td>
+      <td> ${precio} </td>
+      <td> ${cantidad} </td>
+      <td> <a href="#" class="borrar-curso" data-id="${id}">X<a/> </td> 
     `;
 
     // Agrega el html del tr al tbody
@@ -86,4 +91,26 @@ function limpiarHTML(){
   while(contenedorCarrito.firstChild){
     contenedorCarrito.removeChild(contenedorCarrito.firstChild);
   }
+}
+
+
+// Comprueba si el curso está repetido en el carrito
+function compruebaCurso(datosCurso){
+  // Recorre el array carrito y comprueba si el id del curso actual y alguno del carrito tienen el mismo
+  // id. En caso afirmativo, se le añade 1 a cantidad de ese curso y se asigna ese curso a una variable.
+  let cursoRepetido;
+  cursosCarrito.forEach(curso => {
+    if(datosCurso.id == curso.id){
+      curso.cantidad += 1;
+      cursoRepetido = curso;
+    }
+  });
+  // Se verifica si ese curso está repetido. Si está repetido no se agrega al array. En caso de no estar
+  // repetido entonces se agrega ese curso al carrito.
+  if(cursoRepetido){
+    console.log('Curso Repetido: se suma 1 a cantidad');
+  } else{
+    cursosCarrito = [...cursosCarrito, datosCurso];
+  }
+  console.log(cursosCarrito);
 }
