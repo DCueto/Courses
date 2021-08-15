@@ -6,6 +6,9 @@ const btnEnviar = document.querySelector('#enviar');
 const btnReset = document.querySelector('#resetBtn');
 const formulario = document.querySelector('#enviar-mail');
 
+// (QUEDA PENDIENTE APRENDER EXPRESIONES REGULARES)
+const er = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 // Variables campos
 const email = document.querySelector('#email');
 const asunto = document.querySelector('#asunto');
@@ -25,6 +28,15 @@ function eventListeners(){
   asunto.addEventListener('blur', validarFormulario);
   mensaje.addEventListener('blur', validarFormulario);
 
+  // Enviar email
+  formulario.addEventListener('submit', enviarEmail);
+
+  // Resetear campos
+  btnReset.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    resetearFormulario();
+  });
 }
 
 
@@ -52,27 +64,20 @@ function validarFormulario(e){
     }
 
     if(e.target.type !== 'email'){
-      e.target.classList.remove('border', 'border-red-500');
-      e.target.classList.add('border', 'border-green-500');
+      cambiarBorde(e, 'red', 'green');
     }
   } else{
     // No hay ningún contenido
-    e.target.classList.add('border', 'border-red-500');
-    e.target.classList.remove('border-green-500');
+    cambiarBorde(e, 'green', 'red');
     formError('Todos los campos son obligatorios', 3);
   }
-
-  // forma compleja con una expresión regular
-  // (QUEDA PENDIENTE APRENDER EXPRESIONES REGULARES)
-  const er = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   // Validación campo email
   if(e.target.type == 'email'){
 
+    // validación con expresión regular
     if (er.test(e.target.value)){
-      // estilos borde input
-      e.target.classList.remove('border', 'border-red-500');
-      e.target.classList.add('border', 'border-green-500');
+      cambiarBorde(e, 'red', 'green');
       console.log('Formato de email correcto');
 
       // borrar error
@@ -82,9 +87,7 @@ function validarFormulario(e){
       }
     } else{
       formError('Email no valido', 1);
-
-      e.target.classList.add('border', 'border-red-500');
-      e.target.classList.remove('border-green-500');
+      cambiarBorde(e, 'green', 'red');
     }
   }
 
@@ -98,13 +101,10 @@ function validarFormulario(e){
 
 
 function formError(mensaje, position){
-  console.log('Error');
   // Creamos el campo de error
   const mensajeError = document.createElement('p');
   mensajeError.textContent = mensaje;
-  // mensajeError.style.marginBottom = '1rem';
   mensajeError.classList.add('error', 'border', 'border-red-500', 'background-red-100', 'text-red-500', 'p-3', 'mb-5', 'text-center');
-
 
   // Si no hay un elemento p con la clase error, añadelo. Si existe, actualiza el mensaje.
   if(!formulario.querySelector('p.error')){
@@ -117,4 +117,51 @@ function formError(mensaje, position){
     formulario.insertBefore(mensajeError, formulario.children[position]);
     //formulario.querySelector('.error').textContent = mensaje;
   }
+}
+
+
+// Envia el email
+function enviarEmail(e){
+  e.preventDefault();
+
+  // Mostrar el spinner
+  const spinner = document.querySelector('#spinner');
+  spinner.style.display = 'flex';
+
+  console.log('Enviando...');
+
+  // Después de 3 segundos, ocultar el spinner y mostrar el mensaje
+  setTimeout(() =>{
+    spinner.style.display = 'none';
+    // formError('¡MENSAJE ENVIADO CORRECTAMENTE!', 4);
+
+    // Mensaje de email enviado
+    const parrafo = document.createElement('p');
+    parrafo.textContent = 'El mensaje se envió correctamente.';
+    parrafo.classList.add('enviado', 'border', 'border-blue-500', 'text-blue-500', 'p-3', 'mb-5', 'text-center')
+    formulario.insertBefore(parrafo, spinner);
+
+    // Eliminar mensaje después de 5 segundos
+    setTimeout(()=>{
+      parrafo.remove();
+      resetearFormulario();
+    }, 5000);
+  }, 3000);
+
+}
+
+
+// Resetea el formulario
+function resetearFormulario(){
+
+  // Método para resetear elementos de tipo form
+  formulario.reset();
+  iniciarApp();
+
+}
+
+// Cambiar color borde
+function cambiarBorde(e, remove, add){
+  e.target.classList.remove('border', `border-${remove}-500`);
+  e.target.classList.add('border', `border-${add}-500`);
 }
