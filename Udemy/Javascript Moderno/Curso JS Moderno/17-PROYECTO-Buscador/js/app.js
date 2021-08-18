@@ -53,12 +53,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
   selectMarca.addEventListener('change', e => datosBusqueda.marca = e.target.value);
   // usamos parseInt() para convertir el valor de string a number y poder usar el comparador estricto en el .filter()
   selectYear.addEventListener('change', e => datosBusqueda.year = parseInt(e.target.value));
-  selectMinimo.addEventListener('change', e => datosBusqueda.minimo = e.target.value);
-  selectMaximo.addEventListener('change', e => datosBusqueda.maximo = e.target.value);
-  selectPuertas.addEventListener('change', e => datosBusqueda.puertas = e.target.value);
+  selectMinimo.addEventListener('change', e => datosBusqueda.minimo = parseInt(e.target.value));
+  selectMaximo.addEventListener('change', e => datosBusqueda.maximo = parseInt(e.target.value));
+  selectPuertas.addEventListener('change', e => datosBusqueda.puertas = parseInt(e.target.value));
   selectTransmision.addEventListener('change', e => datosBusqueda.transmision = e.target.value);
   selectColor.addEventListener('change', e => datosBusqueda.color = e.target.value);
-  
+
 
 // Imprimir datos de búsqueda
 // Hacemos un forEach a todos los elementos select pasándole el eventListener que queremos en todos
@@ -110,7 +110,15 @@ function filtrarAuto(){
   const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo)
     .filter(filtrarMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor);
   console.log(resultado);
-  mostrarAutos(resultado);
+
+  // Verificar si hay algún resultado con la búsqueda
+  if (resultado.length > 0){
+    mostrarAutos(resultado);
+  } else{
+    // Si no hay ningún resultado:
+    console.log('No hay autos con estas características');
+    sinResultado();
+  }
 
 
   // Filtro marca
@@ -177,7 +185,16 @@ function filtrarAuto(){
     }
     return auto;
   }
+}
 
+function sinResultado(){
+  limpiarHTML();
+  const noResultado = document.createElement('div');
+  noResultado.classList.add('alerta', 'error');
+  noResultado.textContent = `NO HAY RESULTADOS`;
+
+  // Insertar en el HTML
+  resultado.appendChild(noResultado);
 }
 
 
