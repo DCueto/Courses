@@ -48,11 +48,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   // Selects de búsqueda
   // Con el evento 'change', se ejecuta al cambiar de opción en un select
-  selectMarca.addEventListener('change', e => {
-    datosBusqueda.marca = e.target.value;
-    filtrarAuto();
-  });
-  selectYear.addEventListener('change', e => datosBusqueda.year = e.target.value);
+  selectMarca.addEventListener('change', e => datosBusqueda.marca = e.target.value);
+  // usamos parseInt() para convertir el valor de string a number y poder usar el comparador estricto en el .filter()
+  selectYear.addEventListener('change', e => datosBusqueda.year = parseInt(e.target.value));
   selectMinimo.addEventListener('change', e => datosBusqueda.minimo = e.target.value);
   selectMaximo.addEventListener('change', e => datosBusqueda.maximo = e.target.value);
   selectPuertas.addEventListener('change', e => datosBusqueda.puertas = e.target.value);
@@ -68,9 +66,9 @@ btnDatos.addEventListener('click', e => {
 });
 
 // Imprimir datos de búsqueda
-// selects.forEach( select => {
-//   select.addEventListener('change', filtrarAuto);
-// });
+selects.forEach( select => {
+  select.addEventListener('change', filtrarAuto);
+});
 
 // FUNCIONES
 
@@ -109,31 +107,31 @@ function llenarSelect(){
 // Función que filtra en base a la búsqueda
 
 function filtrarAuto(){
-  const resultado = autos.filter(filtrarMarca);
+  // podemos concatenar .filter() para ir obteniendo resultados en base a diferentes filtros en una
+  // misma búsqueda.
+  const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
   console.log(resultado);
 }
 
-// Filtro select marca
-function filtrarMarca(auto){
-  const {marca} = datosBusqueda;
-  if(marca){
-    return auto.marca === marca;
+  // Filtro select marca
+  function filtrarMarca(auto){
+    const {marca} = datosBusqueda;
+    if(marca){
+      return auto.marca === marca;
+    }
+    // en caso de que no haya contenido en datosBusqueda por no rellenar el select, retorna
+    // el array de autos entero para que se pueda seguir filtrando en los otros filtros
+    return auto;
   }
-  return auto;
-}
 
-// Imprime los coches con el filtro de los datosBusqueda
-// function imprimirBusqueda(e){
-//   limpiarHTML();
-//   console.log(e);
-//   const id = e.target.id;
-//   const value = e.target.value;
-//   if(id == 'marca'){
-//     const busqueda = autos.filter(auto => auto.marca == value);
-//     console.log(busqueda);
-//     busquedaHTML(busqueda);
-//   }
-// }
+  // Filtro select year
+  function filtrarYear(auto){
+    const {year} = datosBusqueda;
+    if(year){
+      return auto.year === year;
+    }
+    return auto;
+  }
 
 // function busquedaHTML(busqueda){
 //   busqueda.forEach(auto => {
