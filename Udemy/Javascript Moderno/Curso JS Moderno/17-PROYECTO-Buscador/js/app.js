@@ -2,6 +2,8 @@
 // VARIABLES
 
   const buscador = document.querySelector('#buscador');
+
+  // Query array con todos los elementos select en #buscador
   const selects = document.querySelectorAll('#buscador select');
 
   // Contenedor de resultados
@@ -56,16 +58,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
   selectPuertas.addEventListener('change', e => datosBusqueda.puertas = e.target.value);
   selectTransmision.addEventListener('change', e => datosBusqueda.transmision = e.target.value);
   selectColor.addEventListener('change', e => datosBusqueda.color = e.target.value);
-
-// Imprimir datosBusqueda con botón Datos
-btnDatos.addEventListener('click', e => {
-  e.preventDefault();
-  console.log(datosBusqueda);
-
-  limpiarHTML();
-});
+  
 
 // Imprimir datos de búsqueda
+// Hacemos un forEach a todos los elementos select pasándole el eventListener que queremos en todos
+// los elementos.
 selects.forEach( select => {
   select.addEventListener('change', filtrarAuto);
 });
@@ -110,12 +107,13 @@ function llenarSelect(){
 function filtrarAuto(){
   // podemos concatenar .filter() para ir obteniendo resultados en base a diferentes filtros en una
   // misma búsqueda.
-  const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
+  const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo)
+    .filter(filtrarMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor);
   console.log(resultado);
   mostrarAutos(resultado);
-}
 
-  // Filtro select marca
+
+  // Filtro marca
   function filtrarMarca(auto){
     const {marca} = datosBusqueda;
     if(marca){
@@ -126,7 +124,7 @@ function filtrarAuto(){
     return auto;
   }
 
-  // Filtro select year
+  // Filtro year
   function filtrarYear(auto){
     const {year} = datosBusqueda;
     if(year){
@@ -134,6 +132,55 @@ function filtrarAuto(){
     }
     return auto;
   }
+
+  // Filtro precio mínimo
+  function filtrarMinimo(auto){
+    const {minimo} = datosBusqueda;
+    if(minimo){
+      return auto.precio >= minimo;
+    }
+    return auto;
+  }
+
+  // Filtro precio máximo
+  function filtrarMaximo(auto){
+    const {maximo} = datosBusqueda;
+    if(maximo){
+      return auto.precio <= maximo;
+    }
+    return auto;
+  }
+
+  // Filtro puertas
+  function filtrarPuertas(auto){
+    const {puertas} = datosBusqueda;
+    if(puertas){
+      return auto.puertas === puertas;
+    }
+    return auto;
+  }
+
+  // Filtro transmisión
+  function filtrarTransmision(auto){
+    const {transmision} = datosBusqueda;
+    if(transmision){
+      return auto.transmision === transmision;
+    }
+    return auto;
+  }
+
+  // Filtro color
+  function filtrarColor(auto){
+    const {color} = datosBusqueda;
+    if(color){
+      return auto.color === color;
+    }
+    return auto;
+  }
+
+}
+
+
 
 // Limpiar la sección #resultado
 function limpiarHTML(){
