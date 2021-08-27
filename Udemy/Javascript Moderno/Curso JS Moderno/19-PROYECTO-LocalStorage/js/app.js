@@ -25,6 +25,13 @@ function eventListeners(){
 function initApp(){
   console.log('DOM cargado correctamente');
   eventListeners();
+
+  if(localStorage.getItem('tweets')){
+    tweets = JSON.parse(localStorage.getItem('tweets'));
+    console.log(tweets);
+
+    renderHTML();
+  }
 }
 
 function agregarTweet(e){
@@ -91,6 +98,8 @@ function renderHTML(){
       contenedorTweets.appendChild(li);
     });
   }
+
+  sincronizarStorage();
 }
 
 // Limpiar el contenedor HTML de tweets
@@ -98,4 +107,10 @@ function limpiarHTML(){
   while(contenedorTweets.firstChild){
     contenedorTweets.removeChild(contenedorTweets.firstChild);
   }
+}
+
+
+// Agrega los tweets actuales a local storage
+function sincronizarStorage(){
+  localStorage.setItem('tweets', JSON.stringify(tweets));
 }
